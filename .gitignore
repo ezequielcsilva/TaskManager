@@ -1,0 +1,53 @@
+# .gitignore para projetos .NET
+
+## Ignore arquivos de build do Visual Studio
+bin/
+obj/
+[Bb]uild/
+[Bb]uild[Ll]og.*
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Ignore arquivos de publicação
+publish/
+out/
+
+## Ignore arquivos de dependências
+packages/
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## Ignore arquivos de configuração do Visual Studio
+.vs/
+*.vssscc
+*.vspscc
+*.dbmdl
+*.pdb
+
+## Ignore arquivos temporários
+*.tmp
+*.temp
+*.log
+
+## Ignore arquivos de cache
+*.cache
+*.sqlite
+
+## Ignore arquivos de teste
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+## Ignore arquivos de backup
+*.bak
+*.old
+*.orig
+
+## Ignore arquivos PDF
+*.pdf
