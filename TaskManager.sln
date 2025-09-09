@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6919D398
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.UnitTests", "tests\TaskManager.UnitTests\TaskManager.UnitTests.csproj", "{E5BAAF55-5C9B-45EA-87A3-8027332FA92B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.Application", "src\TaskManager.Application\TaskManager.Application.csproj", "{B45ADE6A-4E09-44AB-B077-CD8984A755FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{E5BAAF55-5C9B-45EA-87A3-8027332FA92B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5BAAF55-5C9B-45EA-87A3-8027332FA92B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5BAAF55-5C9B-45EA-87A3-8027332FA92B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B45ADE6A-4E09-44AB-B077-CD8984A755FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B45ADE6A-4E09-44AB-B077-CD8984A755FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B45ADE6A-4E09-44AB-B077-CD8984A755FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B45ADE6A-4E09-44AB-B077-CD8984A755FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{4D6C61B7-9CAF-4C29-8167-D636A855C57E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{E5BAAF55-5C9B-45EA-87A3-8027332FA92B} = {6919D398-071A-4D7B-B079-0AF9BF0AD558}
+		{B45ADE6A-4E09-44AB-B077-CD8984A755FA} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B1A8D3EF-2F14-49C8-A47C-B8167198E820}
