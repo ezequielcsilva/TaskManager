@@ -16,7 +16,11 @@ internal sealed class CompleteTaskCommandHandler(
         var validationResult = await validator.ValidateAsync(command, cancellationToken);
         if (!validationResult.IsValid)
         {
-            return Result.Failure<CompleteTaskResult>(TaskItemErrors.InvalidRequest);
+            var errors = validationResult.Errors
+                .Select(e => new Error(e.ErrorCode, e.ErrorMessage))
+                .ToArray();
+
+            return Result.Failure<CompleteTaskResult>(errors);
         }
 
         var task = await taskRepository.GetByIdAsync(command.TaskId, cancellationToken);

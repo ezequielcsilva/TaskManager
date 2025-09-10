@@ -16,7 +16,11 @@ internal sealed class DeleteTaskCommandHandler(
         var validationResult = await validator.ValidateAsync(command, cancellationToken);
         if (!validationResult.IsValid)
         {
-            return Result.Failure<DeleteTaskResult>(TaskItemErrors.InvalidRequest);
+            var errors = validationResult.Errors
+                .Select(e => new Error(e.ErrorCode, e.ErrorMessage))
+                .ToArray();
+
+            return Result.Failure<DeleteTaskResult>(errors);
         }
 
         var task = await taskRepository.GetByIdAsync(command.TaskId, cancellationToken);

@@ -16,7 +16,11 @@ internal sealed class CreateTaskCommandHandler(
         var validationResult = await validator.ValidateAsync(command, cancellationToken);
         if (!validationResult.IsValid)
         {
-            return Result.Failure<CreateTaskResult>(TaskItemErrors.InvalidRequest);
+            var errors = validationResult.Errors
+                .Select(e => new Error(e.ErrorCode, e.ErrorMessage))
+                .ToArray();
+
+            return Result.Failure<CreateTaskResult>(errors);
         }
 
         var task = TaskItem.Create(

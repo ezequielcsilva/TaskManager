@@ -55,16 +55,16 @@ public class CreateTaskCommandHandlerTests
         var command = new CreateTaskCommand("", "", DateTime.MinValue, Guid.Empty);
 
         _validator.ValidateAsync(command, Arg.Any<CancellationToken>())
-            .Returns(new FluentValidation.Results.ValidationResult(new[]
-            {
+            .Returns(new FluentValidation.Results.ValidationResult(
+            [
                 new FluentValidation.Results.ValidationFailure("Title", "Required")
-            }));
+            ]));
 
         // When
         var result = await _handler.Handle(command);
 
         // Then
         result.IsSuccess.Should().BeFalse();
-        result.Errors.Should().Contain(TaskItemErrors.InvalidRequest);
+        result.Errors.Should().NotBeEmpty();
     }
 }

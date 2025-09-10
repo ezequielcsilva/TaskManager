@@ -14,7 +14,11 @@ internal sealed class GetTasksByUserQueryHandler(
         var validationResult = await validator.ValidateAsync(query, cancellationToken);
         if (!validationResult.IsValid)
         {
-            return Result.Failure<GetTasksByUserListResult>(TaskItemErrors.InvalidRequest);
+            var errors = validationResult.Errors
+                .Select(e => new Error(e.ErrorCode, e.ErrorMessage))
+                .ToArray();
+
+            return Result.Failure<GetTasksByUserListResult>(errors);
         }
 
         var tasks = await taskRepository.GetTasksByUserIdAsync(query.UserId, cancellationToken);
