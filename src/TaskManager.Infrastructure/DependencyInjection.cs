@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
+using TaskManager.Application.Abstractions.Data;
 using TaskManager.Domain.Tasks;
 using TaskManager.Infrastructure.Repositories;
 
@@ -27,6 +28,10 @@ public static class DependencyInjection
         {
             options.UseInMemoryDatabase("TaskManagerDatabase");
         });
+        
+        // Registrar IDbContext para que os handlers possam injetá-lo
+        services.AddScoped<IDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+        
         services.AddScoped<ITaskRepository, TaskRepository>();
         return services;
     }

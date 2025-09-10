@@ -19,6 +19,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\src\TaskManager.Api\TaskManager.Api.csproj" />
 		<ProjectReference Include="..\..\src\TaskManager.Application\TaskManager.Application.csproj" />
 		<ProjectReference Include="..\..\src\TaskManager.Infrastructure\TaskManager.Infrastructure.csproj" />
 	</ItemGroup>
