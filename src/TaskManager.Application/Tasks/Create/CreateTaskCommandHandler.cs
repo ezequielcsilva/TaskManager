@@ -1,5 +1,4 @@
 using FluentValidation;
-using Microsoft.Extensions.Logging;
 using TaskManager.Application.Abstractions.Data;
 using TaskManager.Application.Abstractions.Messaging;
 using TaskManager.Domain.Abstractions;
@@ -10,8 +9,7 @@ namespace TaskManager.Application.Tasks.Create;
 internal sealed class CreateTaskCommandHandler(
     ITaskRepository taskRepository,
     IDbContext dbContext,
-    IValidator<CreateTaskCommand> validator,
-    ILogger<CreateTaskCommandHandler> logger) : ICommandHandler<CreateTaskCommand, CreateTaskResult>
+    IValidator<CreateTaskCommand> validator) : ICommandHandler<CreateTaskCommand, CreateTaskResult>
 {
     public async Task<Result<CreateTaskResult>> Handle(CreateTaskCommand command, CancellationToken cancellationToken = default)
     {
@@ -31,8 +29,6 @@ internal sealed class CreateTaskCommandHandler(
         taskRepository.Add(task);
 
         await dbContext.SaveChangesAsync(cancellationToken);
-
-        logger.LogInformation("Task created successfully. TaskId: {TaskId}", task.Id);
 
         var result = new CreateTaskResult(
             task.Id,

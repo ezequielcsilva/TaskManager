@@ -1,5 +1,4 @@
 using FluentValidation;
-using Microsoft.Extensions.Logging;
 using TaskManager.Application.Abstractions.Data;
 using TaskManager.Application.Abstractions.Messaging;
 using TaskManager.Domain.Abstractions;
@@ -10,8 +9,7 @@ namespace TaskManager.Application.Tasks.Delete;
 internal sealed class DeleteTaskCommandHandler(
     ITaskRepository taskRepository,
     IDbContext dbContext,
-    IValidator<DeleteTaskCommand> validator,
-    ILogger<DeleteTaskCommandHandler> logger) : ICommandHandler<DeleteTaskCommand, DeleteTaskResult>
+    IValidator<DeleteTaskCommand> validator) : ICommandHandler<DeleteTaskCommand, DeleteTaskResult>
 {
     public async Task<Result<DeleteTaskResult>> Handle(DeleteTaskCommand command, CancellationToken cancellationToken = default)
     {
@@ -21,18 +19,15 @@ internal sealed class DeleteTaskCommandHandler(
             return Result.Failure<DeleteTaskResult>(TaskItemErrors.InvalidRequest);
         }
 
-        var task = await taskRepository.GetTasksByUserIdAsync(command.TaskId, cancellationToken);
+        var task = await taskRepository.GetByIdAsync(command.TaskId, cancellationToken);
         if (task is null)
         {
-            logger.LogWarning("Task not found. TaskId: {TaskId}", command.TaskId);
             return Result.Failure<DeleteTaskResult>(TaskItemErrors.NotFound);
         }
 
         taskRepository.Delete(task);
 
         await dbContext.SaveChangesAsync(cancellationToken);
-
-        logger.LogInformation("Task deleted successfully. TaskId: {TaskId}", task.Id);
 
         var result = new DeleteTaskResult(task.Id);
 

@@ -1,5 +1,4 @@
 using TaskManager.Application.Abstractions.Messaging;
-using TaskManager.Application.Tasks.Delete;
 
 namespace TaskManager.Application.Tasks.Delete;
 

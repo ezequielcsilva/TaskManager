@@ -1,5 +1,4 @@
 using FluentValidation;
-using Microsoft.Extensions.Logging;
 using TaskManager.Application.Abstractions.Messaging;
 using TaskManager.Domain.Abstractions;
 using TaskManager.Domain.Tasks;
@@ -8,8 +7,7 @@ namespace TaskManager.Application.Tasks.GetTasksByUser;
 
 internal sealed class GetTasksByUserQueryHandler(
     ITaskRepository taskRepository,
-    IValidator<GetTasksByUserQuery> validator,
-    ILogger<GetTasksByUserQueryHandler> logger) : IQueryHandler<GetTasksByUserQuery, GetTasksByUserListResult>
+    IValidator<GetTasksByUserQuery> validator) : IQueryHandler<GetTasksByUserQuery, GetTasksByUserListResult>
 {
     public async Task<Result<GetTasksByUserListResult>> Handle(GetTasksByUserQuery query, CancellationToken cancellationToken = default)
     {
@@ -23,7 +21,6 @@ internal sealed class GetTasksByUserQueryHandler(
 
         if (tasks is null)
         {
-            logger.LogWarning("No tasks found for UserId: {UserId}", query.UserId);
             return Result.Failure<GetTasksByUserListResult>(TaskItemErrors.NotFound);
         }
 
@@ -37,8 +34,6 @@ internal sealed class GetTasksByUserQueryHandler(
                                     t.UserId,
                                     t.IsCompleted
                                 )));
-
-        logger.LogInformation("Tasks retrieved successfully for UserId: {UserId}", query.UserId);
 
         return Result.Success(result);
     }
